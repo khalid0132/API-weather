@@ -66,7 +66,7 @@
   
   /* Section-1 starts */
   .top-banner {
-    color: var(--text_light);
+    color: white;
     background: url('images/banner.jpg') no-repeat center/cover;
   }
   
@@ -101,12 +101,13 @@
     padding: 15px 20px;
     margin-left: 15px;
     border-radius: 5px;
-    background: var(--red);
-    transition: background 0.3s ease-in-out;
+    background:brown;
+    transition: 0.3s ease-in-out;
   }
   
   .top-banner form button:hover {
-    background: var(--darkred);
+    background: rgb(165, 42, 42);
+    opacity: .7;
   }
   
   .top-banner form .msg {
@@ -133,8 +134,8 @@
     position: relative;
     padding: 1px 1%;
     border-radius: 20px;
-    background: var(--text_light);
-    color: var(--text_med);
+    background: white;
+    color: gray;
   }
   
   .ajax-section .city::after {
@@ -147,7 +148,7 @@
     z-index: -1;
     opacity: 0.3;
     border-radius: 20px;
-    background: var(--text_light);
+    background: white);
   }
   
   .ajax-section figcaption {
@@ -170,8 +171,8 @@
   .ajax-section .city-name sup {
     padding: 0.2em 0.6em;
     border-radius: 30px;
-    color: var(--text_light);
-    background: var(--orange);
+    color: white;
+    background: brown;
   }
   
   .ajax-section .city-icon {
@@ -185,10 +186,10 @@
   .page-footer {
     text-align: right;
     font-size: 1rem;
-    color: var(--text_light);
+    color: white;
     margin-top: 40px;
   }
   
   .page-footer span {
-    color: var(--red);
+    color: brown;
   }
