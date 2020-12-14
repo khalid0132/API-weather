@@ -3,24 +3,36 @@ const form = document.querySelector(".top-banner form");
 const input = document.querySelector(".top-banner input");
 const msg = document.querySelector(".top-banner .msg");
 const list = document.querySelector(".ajax-section .cities");
-/*PUT YOUR OWN KEY HERE - THIS MIGHT NOT WORK
-SUBSCRIBE HERE: https://home.openweathermap.org/users/sign_up*/
+/**PUT YOUR OWN KEY HERE - THIS MIGHT NOT WORK IF WE USE INVALID API KEY
+*SUBSCRIBE HERE: https://home.openweathermap.org/users/sign_up
+* WHEN WE SIGNED UP THEN WE'LL GET AN API KEY THAT WE CAN USE TO GET WEATHER UPDATE
+*/
 const apiKey = "35e374f14e1fb5678b850b8ccf0d17c9"; // Personal API keys
-
+/**
+ * USE ADDEVENTLISTENER AND MAKE A FUNCTION WITH EVENT WHEREAS WE CAN PUT OUR EXPECTED CITY
+ * CITY NAME MUST BE VALID AND RIGHT FORMAT
+ */
 form.addEventListener("submit", e => {
   e.preventDefault();
   let inputVal = input.value;
 
-  //check if there's already a city
+  /**
+   * CHECK OUT IF THERE'S ALREADY A CITY INTO OUR LIST
+   * WE USED ARRAYLIST 
+   */
   const listItems = list.querySelectorAll(".ajax-section .city");
   const listItemsArray = Array.from(listItems);
 
   if (listItemsArray.length > 0) {
     const filteredArray = listItemsArray.filter(el => {
       let content = "";
-      //dhaka,bd
+     
+      /*DHAKA, BD*/
       if (inputVal.includes(",")) {
-        //dhaka,dhhhh->invalid country code, so we keep only the first part of inputVal
+      
+      /**
+       * INVALID COUNTRY CODE IF WE DON'T USE PROPER COUNTRY CODE, 
+       * FOR INSTANCE: DHAKA, DHHH-> SO WE KEEP ONLY THE FIRST PART OF INPUTVALUE*/
         if (inputVal.split(",")[1].length > 2) {
           inputVal = inputVal.split(",")[0];
           content = el
@@ -30,12 +42,15 @@ form.addEventListener("submit", e => {
           content = el.querySelector(".city-name").dataset.name.toLowerCase();
         }
       } else {
-        //dhaka
+        //DHAKA
         content = el.querySelector(".city-name span").textContent.toLowerCase();
       }
       return content == inputVal.toLowerCase();
     });
-
+    /**
+     * IF WE PUT THE SAME INPUTVAL WHERE WE ALREADY GOT THE RESULT
+     * THEN OUTPUT WILL SHOW "YOU ALREADY KNOW THE WEATHER FOR THAT SPECIFIC CITY THAT ALREADY SHOWN"
+     */
     if (filteredArray.length > 0) {
       msg.textContent = `You already know the weather for ${
         filteredArray[0].querySelector(".city-name span").textContent
@@ -46,9 +61,13 @@ form.addEventListener("submit", e => {
     }
   }
 
-  //ajax here
+  //AJAX HERE
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric`;
-
+  /**
+   * HERE WE WILL FETCH JSON DATA WHEREAS WE WILL GET THE ICON THAT COLLECTED FROM AMAZONAWS.COM
+   * WE'LL GET THE CITY'S TEMPARATURE WITH FLOOR, WE'LL NOT SHOW THE FRACTION OF THE WEATHER LIKE 23.5 C
+   * WITH COUNTRY AND CITY'S WEATHER DESCRIPTION LIKE IS IT GLOMY OR SUNNY OR HAZY OR PARTLY COULDY ETC ETC
+   */
   fetch(url)
     .then(response => response.json())
     .then(data => {
